@@ -1,0 +1,45 @@
+{
+    "total_diario": 620.05,
+    "total_mensual": 12401,
+    "total_anual": 148812,
+    "estimacion_2026": {
+      "total_anual": 153276.36
+    },
+    "productos": [
+      {
+        "descripcion": "Sacos industriales",
+        "cantidad": 20,
+        "precio_unitario": 1.51,
+        "importe": 30.2
+      },
+      {
+        "descripcion": "Bolsas basura pequeñas",
+        "cantidad": 30,
+        "precio_unitario": 1.13,
+        "importe": 33.9
+      },
+      {
+        "descripcion": "Fardos papel wc industrial",
+        "cantidad": 10,
+        "precio_unitario": 25.67,
+        "importe": 256.7
+      }
+    ],
+    "servicios": [
+      {
+        "descripcion": "Limpieza jardín, patios y entrada",
+        "fecha": "20/04/2024",
+        "importe": 668.8
+      },
+      {
+        "descripcion": "Transporte y deixalleria",
+        "importe": 208.6
+      },
+      {
+        "descripcion": "Bolsa de horas especialistas licitación",
+        "horas": 30,
+        "importe": -501.6
+      }
+    ]
+  }
+  

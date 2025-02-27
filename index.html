@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Consum</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Consum</h1>
+        
+        <div class="input-group">
+            <label>Consum elèctric anual (kWh):</label>
+            <input type="number" id="electricBase" value="50000">
+        </div>
+        
+        <div class="input-group">
+            <label>Consum d’aigua anual (m³):</label>
+            <input type="number" id="aiguaBase" value="10000">
+        </div>
+        
+        <div class="input-group">
+            <label>Consumibles d’oficina anual (€):</label>
+            <input type="number" id="oficinaBase" value="2000">
+        </div>
+        
+        <div class="input-group">
+            <label>Productes de neteja anual (€):</label>
+            <input type="number" id="netejaBase" value="1500">
+        </div>
+        
+        <button onclick="calcular()">Calcular</button>
+        
+        <div id="resultats"></div>
+        
+        <div class="consells">
+            <h2>Com reduir el consum</h2>
+            <ul>
+                <li><strong>Electricitat:</strong> Instal·lar LEDs i sensors de moviment (estalvi 20-30%).</li>
+                <li><strong>Aigua:</strong> Usar aixetes amb airejadors (estalvi 50%).</li>
+                <li><strong>Consumibles:</strong> Digitalitzar documents (estalvi 40%).</li>
+                <li><strong>Neteja:</strong> Comprar a granel (estalvi 10%).</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

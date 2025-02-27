@@ -1,0 +1,29 @@
+{
+    "total_mensual": 928.20,
+    "total_anual": 11138.40,
+    "estimacion_2026": {
+      "total_mensual": 956.05,
+      "total_anual": 11472.55
+    },
+    "tendencias_temporales": {
+      "hivern": "Incremento del 5%",
+      "estiu": "Incremento del 1%",
+      "resto_meses": "Incremento del 3%"
+    },
+    "pv_yield": {
+      "verano": "+10%",
+      "invierno": "-5%"
+    },
+    "consumo": {
+      "enero": 10327.13,
+      "julio": 9933.71
+    },
+    "pérdidas_exportación": {
+      "enero_2026": 25.93
+    },
+    "autoconsumo": {
+      "porcentaje": "100%",
+      "reducción_estival": "2%"
+    }
+  }
+  
