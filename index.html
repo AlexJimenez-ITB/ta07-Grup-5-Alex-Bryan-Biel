@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Incloem Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Incloem jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,73 +18,136 @@
         <div class="tabs">
             <button class="tab-button active" onclick="openTab('personalitzat')">Personalitzat</button>
             <button class="tab-button" onclick="openTab('dadesPropies')">Dades Propies</button>
-            <button class="tab-button" onclick="openTab('consumCurs')">Consum Elèctric Curs</button>
+            <button class="tab-button" onclick="openTab('consumElectric')">Consum Elèctric</button>
+            <button class="tab-button" onclick="openTab('consumAigua')">Consum d'Aigua</button>
+            <button class="tab-button" onclick="openTab('consumOficina')">Consumibles d'Oficina</button>
+            <button class="tab-button" onclick="openTab('consumNeteja')">Productes de Neteja</button>
         </div>
 
         <!-- Contingut Pestanya Personalitzat -->
         <div id="personalitzat" class="tab-content active">
             <div class="input-group">
                 <label>Consum elèctric anual (kWh):</label>
-                <input type="number" id="electricBase" value="50000">
+                <input type="number" id="electricBase" value="0">
             </div>
             <div class="input-group">
                 <label>Consum d’aigua anual (m³):</label>
-                <input type="number" id="aiguaBase" value="10000">
+                <input type="number" id="aiguaBase" value="0">
             </div>
             <div class="input-group">
                 <label>Consumibles d’oficina anual (€):</label>
-                <input type="number" id="oficinaBase" value="2000">
+                <input type="number" id="oficinaBase" value="0">
             </div>
             <div class="input-group">
                 <label>Productes de neteja anual (€):</label>
-                <input type="number" id="netejaBase" value="1500">
+                <input type="number" id="netejaBase" value="0">
             </div>
             <button onclick="calcularPersonalitzat()">Calcular</button>
             <div id="resultatsPersonalitzat"></div>
+            <canvas id="chartPersonalitzat" width="400" height="200"></canvas>
+            <button id="exportPersonalitzat" onclick="exportToPDF('personalitzat')" style="display:none; margin-top: 10px;">Exportar a PDF</button>
         </div>
 
         <!-- Contingut Pestanya Dades Propies -->
         <div id="dadesPropies" class="tab-content">
-            <h2>Mitjanes Estimades per al 2026</h2>
-            
-            <!-- Desplegable Consum d'Energia -->
+            <h2>Mitjanes i Càlculs per al 2026</h2>
             <div class="collapsible">
-                <button class="collapsible-btn" onclick="toggleCollapsible('energia')">Consum d'Energia</button>
-                <div id="energia" class="collapsible-content">
-                    <p id="mitjanaEnergia"></p>
-                    <canvas id="chartEnergia" width="400" height="200"></canvas>
+                <button class="collapsible-btn" onclick="toggleCollapsible('subministraments')">Costos de Subministraments</button>
+                <div id="subministraments" class="collapsible-content">
+                    <p id="mitjanaSubministraments"></p>
+                    <canvas id="chartSubministraments" width="400" height="200"></canvas>
+                    <button onclick="exportToPDF('subministraments')" style="margin-top: 10px;">Exportar a PDF</button>
                 </div>
             </div>
-
-            <!-- Desplegable Consum d'Aigua -->
             <div class="collapsible">
                 <button class="collapsible-btn" onclick="toggleCollapsible('aigua')">Consum d'Aigua</button>
                 <div id="aigua" class="collapsible-content">
                     <p id="mitjanaAigua"></p>
                     <canvas id="chartAigua" width="400" height="200"></canvas>
+                    <button onclick="exportToPDF('aigua')" style="margin-top: 10px;">Exportar a PDF</button>
                 </div>
             </div>
-
-            <!-- Desplegable Consum de Neteja -->
             <div class="collapsible">
-                <button class="collapsible-btn" onclick="toggleCollapsible('neteja')">Consum de Neteja</button>
+                <button class="collapsible-btn" onclick="toggleCollapsible('neteja')">Costos de Neteja</button>
                 <div id="neteja" class="collapsible-content">
                     <p id="mitjanaNeteja"></p>
                     <canvas id="chartNeteja" width="400" height="200"></canvas>
+                    <button onclick="exportToPDF('neteja')" style="margin-top: 10px;">Exportar a PDF</button>
                 </div>
             </div>
-
+            <div class="collapsible">
+                <button class="collapsible-btn" onclick="toggleCollapsible('telecomunicacions')">Factures de Telecomunicacions</button>
+                <div id="telecomunicacions" class="collapsible-content">
+                    <p id="mitjanaTelecomunicacions"></p>
+                    <canvas id="chartTelecomunicacions" width="400" height="200"></canvas>
+                    <button onclick="exportToPDF('telecomunicacions')" style="margin-top: 10px;">Exportar a PDF</button>
+                </div>
+            </div>
+            <div class="collapsible">
+                <button class="collapsible-btn" onclick="toggleCollapsible('serveis')">Transaccions de Serveis</button>
+                <div id="serveis" class="collapsible-content">
+                    <p id="mitjanaServeis"></p>
+                    <canvas id="chartServeis" width="400" height="200"></canvas>
+                    <button onclick="exportToPDF('serveis')" style="margin-top: 10px;">Exportar a PDF</button>
+                </div>
+            </div>
+            <div class="collapsible">
+                <button class="collapsible-btn" onclick="toggleCollapsible('oficina')">Consumibles d'Oficina</button>
+                <div id="oficina" class="collapsible-content">
+                    <p id="mitjanaOficina"></p>
+                    <canvas id="chartOficina" width="400" height="200"></canvas>
+                    <button onclick="exportToPDF('oficina')" style="margin-top: 10px;">Exportar a PDF</button>
+                </div>
+            </div>
             <button onclick="calcularDadesPropies()">Calcular i Mostrar Gràfics</button>
         </div>
 
-        <!-- Contingut Pestanya Consum Elèctric Curs -->
-        <div id="consumCurs" class="tab-content">
+        <!-- Contingut Pestanya Consum Elèctric -->
+        <div id="consumElectric" class="tab-content">
             <div class="input-group">
                 <label>Consum elèctric anual (kWh):</label>
-                <input type="number" id="electricCursBase" value="50000">
+                <input type="number" id="electricCursBase" value="0">
             </div>
-            <button onclick="calcularConsumCurs()">Calcular Consum Setembre-Juny</button>
-            <div id="resultatsConsumCurs"></div>
+            <button onclick="calcularConsumElectric()">Calcular</button>
+            <div id="resultatsConsumElectric"></div>
+            <canvas id="chartConsumElectric" width="400" height="200"></canvas>
+            <button id="exportConsumElectric" onclick="exportToPDF('consumElectric')" style="display:none; margin-top: 10px;">Exportar a PDF</button>
+        </div>
+
+        <!-- Contingut Pestanya Consum d'Aigua -->
+        <div id="consumAigua" class="tab-content">
+            <div class="input-group">
+                <label>Consum d’aigua anual (m³):</label>
+                <input type="number" id="aiguaCursBase" value="0">
+            </div>
+            <button onclick="calcularConsumAigua()">Calcular</button>
+            <div id="resultatsConsumAigua"></div>
+            <canvas id="chartConsumAigua" width="400" height="200"></canvas>
+            <button id="exportConsumAigua" onclick="exportToPDF('consumAigua')" style="display:none; margin-top: 10px;">Exportar a PDF</button>
+        </div>
+
+        <!-- Contingut Pestanya Consumibles d'Oficina -->
+        <div id="consumOficina" class="tab-content">
+            <div class="input-group">
+                <label>Consumibles d’oficina anual (€):</label>
+                <input type="number" id="oficinaCursBase" value="0">
+            </div>
+            <button onclick="calcularConsumOficina()">Calcular</button>
+            <div id="resultatsConsumOficina"></div>
+            <canvas id="chartConsumOficina" width="400" height="200"></canvas>
+            <button id="exportConsumOficina" onclick="exportToPDF('consumOficina')" style="display:none; margin-top: 10px;">Exportar a PDF</button>
+        </div>
+
+        <!-- Contingut Pestanya Productes de Neteja -->
+        <div id="consumNeteja" class="tab-content">
+            <div class="input-group">
+                <label>Productes de neteja anual (€):</label>
+                <input type="number" id="netejaCursBase" value="0">
+            </div>
+            <button onclick="calcularConsumNeteja()">Calcular</button>
+            <div id="resultatsConsumNeteja"></div>
+            <canvas id="chartConsumNeteja" width="400" height="200"></canvas>
+            <button id="exportConsumNeteja" onclick="exportToPDF('consumNeteja')" style="display:none; margin-top: 10px;">Exportar a PDF</button>
         </div>
 
         <!-- Secció Consells -->
