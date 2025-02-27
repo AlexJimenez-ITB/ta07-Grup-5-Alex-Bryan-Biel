@@ -44,7 +44,7 @@ button:hover {
     background-color: #0056b3;
 }
 
-#resultats {
+#resultatsPersonalitzat {
     margin-top: 20px;
 }
 
@@ -53,4 +53,68 @@ button:hover {
     background-color: #e9ecef;
     padding: 15px;
     border-radius: 5px;
+}
+
+/* Estils per a les pestanyes */
+.tabs {
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    background-color: #A3BFFA; /* Blau suau quan no està seleccionat */
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+.tab-button:hover {
+    background-color: #7289DA; /* Blau una mica més fosc al hover */
+}
+
+.tab-button.active {
+    background-color: #007BFF;
+    color: white;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Estils per als desplegables */
+.collapsible {
+    margin: 10px 0;
+}
+
+.collapsible-btn {
+    background-color: #A3BFFA; /* Blau suau quan no està seleccionat */
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.collapsible-btn:hover {
+    background-color: #7289DA; /* Blau més fosc al hover */
+}
+
+.collapsible-content {
+    display: none;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.collapsible-content.active {
+    display: block;
 }

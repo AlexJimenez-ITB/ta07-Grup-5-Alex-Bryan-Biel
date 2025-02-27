@@ -1,0 +1,28 @@
+{
+    "facturas": [
+      {
+        "empresa": "DIGI",
+        "mes": "Mayo",
+        "total_a_pagar": 30.00,
+        "servicio_contratado": "Fibra 1Gb",
+        "base_imponible": 24.79,
+        "iva": 5.21,
+        "precio_final": 30.00
+      },
+      {
+        "empresa": "O2",
+        "mes": "Marzo",
+        "total_a_pagar": 50.00,
+        "servicio_contratado": "Fibra 1Gb + Móvil 200GB",
+        "base_imponible": 41.32,
+        "iva": 8.68,
+        "precio_final": 50.00
+      }
+    ],
+    "totales": {
+      "total_mensual": 40.00,
+      "total_anual": 480.00,
+      "estimacion_2026": 494.40
+    }
+  }
+  

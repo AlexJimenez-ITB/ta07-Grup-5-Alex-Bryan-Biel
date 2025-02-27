@@ -1,45 +1,63 @@
 {
-    "total_diario": 620.05,
-    "total_mensual": 12401,
-    "total_anual": 148812,
-    "estimacion_2026": {
-      "total_anual": 153276.36
+  "fecha": "20/06/2024",
+  "fecha_albaran": "03/06/2024",
+  "total_mensual": 620.05,
+  "total_anual_laborable": 5975.1,
+  "estimacion_2026": 6154.353,
+  "gastos": [
+    {
+      "descripcion": "20 Sacos industriales",
+      "cantidad": 1,
+      "precio_unitario": 30.2,
+      "importe": 30.2
     },
-    "productos": [
-      {
-        "descripcion": "Sacos industriales",
-        "cantidad": 20,
-        "precio_unitario": 1.51,
-        "importe": 30.2
-      },
-      {
-        "descripcion": "Bolsas basura pequeñas",
-        "cantidad": 30,
-        "precio_unitario": 1.13,
-        "importe": 33.9
-      },
-      {
-        "descripcion": "Fardos papel wc industrial",
-        "cantidad": 10,
-        "precio_unitario": 25.67,
-        "importe": 256.7
-      }
-    ],
-    "servicios": [
-      {
-        "descripcion": "Limpieza jardín, patios y entrada",
-        "fecha": "20/04/2024",
-        "importe": 668.8
-      },
-      {
-        "descripcion": "Transporte y deixalleria",
-        "importe": 208.6
-      },
-      {
-        "descripcion": "Bolsa de horas especialistas licitación",
-        "horas": 30,
-        "importe": -501.6
-      }
-    ]
-  }
-  
+    {
+      "descripcion": "30 Bolsas basura pequeñas",
+      "cantidad": 1,
+      "precio_unitario": 33.9,
+      "importe": 33.9
+    },
+    {
+      "descripcion": "10 Fardos papel wc industrial",
+      "cantidad": 1,
+      "precio_unitario": 256.7,
+      "importe": 256.7
+    },
+    {
+      "descripcion": "5 Fardos papel secamanos mecha",
+      "cantidad": 1,
+      "precio_unitario": 91.25,
+      "importe": 91.25
+    },
+    {
+      "descripcion": "3 Garrafas jabón manos 5l",
+      "cantidad": 1,
+      "precio_unitario": 25.5,
+      "importe": 25.5
+    },
+    {
+      "descripcion": "10 Fardos papel secamanos",
+      "cantidad": 1,
+      "precio_unitario": 182.5,
+      "importe": 182.5
+    },
+    {
+      "descripcion": "Limpieza jardín, patios y entrada",
+      "cantidad": 1,
+      "precio_unitario": 668.8,
+      "importe": 668.8
+    },
+    {
+      "descripcion": "Transporte y deixalleria",
+      "cantidad": 1,
+      "precio_unitario": 208.6,
+      "importe": 208.6
+    },
+    {
+      "descripcion": "Bolsa de horas especialistas licitación (30h)",
+      "cantidad": 1,
+      "precio_unitario": -501.6,
+      "importe": -501.6
+    }
+  ]
+}

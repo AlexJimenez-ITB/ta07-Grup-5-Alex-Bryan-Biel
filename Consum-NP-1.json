@@ -1,0 +1,78 @@
+{
+  "transacciones": [
+    {
+      "fecha": "13/09/2024",
+      "cliente": 751,
+      "representante": "Independent",
+      "codigo": "F039-NP",
+      "total_anual": 3909.47,
+      "estimacion_2026": 4026.76,
+      "detalles": [
+        {
+          "descripcion": "Serveis Extraordinaris",
+          "cantidad": 1,
+          "pvp": 575.00,
+          "iva": 21,
+          "base_imponible": 575.00,
+          "total_iva": 695.75
+        },
+        {
+          "descripcion": "Compra Material Ferro",
+          "cantidad": 1,
+          "pvp": 132.93,
+          "iva": 21,
+          "base_imponible": 132.93,
+          "total_iva": 160.85
+        },
+        {
+          "descripcion": "Compra Material Fusta",
+          "cantidad": 1,
+          "pvp": 129.24,
+          "iva": 21,
+          "base_imponible": 129.24,
+          "total_iva": 156.38
+        }
+      ]
+    },
+    {
+      "fecha": "05/07/2024",
+      "cliente": 751,
+      "representante": "Independent",
+      "codigo": "F041-NP",
+      "detalles": [
+        {
+          "descripcion": "Servei d'urgencia",
+          "cantidad": 1,
+          "pvp": 288.00,
+          "iva": 21,
+          "base_imponible": 288.00,
+          "total_iva": 348.48
+        }
+      ]
+    },
+    {
+      "fecha": "23/05/2024",
+      "cliente": 751,
+      "representante": "Independent",
+      "codigo": "F046-NP",
+      "detalles": [
+        {
+          "descripcion": "Serveis Extraordinaris",
+          "cantidad": 1,
+          "pvp": 1986.00,
+          "iva": 21,
+          "base_imponible": 1986.00,
+          "total_iva": 2403.06
+        },
+        {
+          "descripcion": "Compra Material Ferro",
+          "cantidad": 1,
+          "pvp": 119.80,
+          "iva": 21,
+          "base_imponible": 119.80,
+          "total_iva": 144.96
+        }
+      ]
+    }
+  ]
+}
