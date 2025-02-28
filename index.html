@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 style=" text-align: center;">Calculadora de Consum</h1>
+        <h1 style="text-align: center;">Calculadora de Consum</h1>
 
         <!-- Pestanyes -->
         <div class="tabs">
@@ -28,19 +28,19 @@
         <div id="personalitzat" class="tab-content active">
             <div class="input-group">
                 <label>Consum elèctric anual (kWh):</label>
-                <input type="number" id="electricBase" value="0">
+                <input type="number" id="electricBase" value="">
             </div>
             <div class="input-group">
                 <label>Consum d’aigua anual (m³):</label>
-                <input type="number" id="aiguaBase" value="0">
+                <input type="number" id="aiguaBase" value="">
             </div>
             <div class="input-group">
                 <label>Consumibles d’oficina anual (€):</label>
-                <input type="number" id="oficinaBase" value="0">
+                <input type="number" id="oficinaBase" value="">
             </div>
             <div class="input-group">
                 <label>Productes de neteja anual (€):</label>
-                <input type="number" id="netejaBase" value="0">
+                <input type="number" id="netejaBase" value="">
             </div>
             <button onclick="calcularPersonalitzat()">Calcular</button>
             <div id="resultatsPersonalitzat"></div>
@@ -105,7 +105,7 @@
         <div id="consumElectric" class="tab-content">
             <div class="input-group">
                 <label>Consum elèctric anual (kWh):</label>
-                <input type="number" id="electricCursBase" value="0">
+                <input type="number" id="electricCursBase" value="">
             </div>
             <button onclick="calcularConsumElectric()">Calcular</button>
             <div id="resultatsConsumElectric"></div>
@@ -117,7 +117,7 @@
         <div id="consumAigua" class="tab-content">
             <div class="input-group">
                 <label>Consum d’aigua anual (m³):</label>
-                <input type="number" id="aiguaCursBase" value="0">
+                <input type="number" id="aiguaCursBase" value="">
             </div>
             <button onclick="calcularConsumAigua()">Calcular</button>
             <div id="resultatsConsumAigua"></div>
@@ -129,7 +129,7 @@
         <div id="consumOficina" class="tab-content">
             <div class="input-group">
                 <label>Consumibles d’oficina anual (€):</label>
-                <input type="number" id="oficinaCursBase" value="0">
+                <input type="number" id="oficinaCursBase" value="">
             </div>
             <button onclick="calcularConsumOficina()">Calcular</button>
             <div id="resultatsConsumOficina"></div>
@@ -141,7 +141,7 @@
         <div id="consumNeteja" class="tab-content">
             <div class="input-group">
                 <label>Productes de neteja anual (€):</label>
-                <input type="number" id="netejaCursBase" value="0">
+                <input type="number" id="netejaCursBase" value="">
             </div>
             <button onclick="calcularConsumNeteja()">Calcular</button>
             <div id="resultatsConsumNeteja"></div>
