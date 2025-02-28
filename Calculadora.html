@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora d'Estalvi Energètic</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Calculadora d'Estalvi Energètic</h1>
+    
+    <label for="dateStart">Data Inici:</label>
+    <input type="date" id="dateStart">
+    
+    <label for="dateEnd">Data Fi:</label>
+    <input type="date" id="dateEnd">
+    
+    <button onclick="updateChart()">Actualizar Gràfic</button>
+    <button onclick="exportToPDF()">Exportar a PDF</button>
+    
+    <canvas id="energyChart"></canvas>
+    
+    <h2>Generar Resultats</h2>
+    <p>Selecciona el càlcul que vols realitzar:</p>
+    <select id="calculationType">
+        <option value="electricitat_any">Consum elèctric del pròxim any</option>
+        <option value="electricitat_periode">Consum elèctric d’un període de temps</option>
+        <option value="aigua_any">Consum d’aigua del pròxim any</option>
+        <option value="aigua_periode">Consum d’aigua d’un període de temps</option>
+        <option value="consumibles_any">Consum dels consumibles d’oficina del pròxim any</option>
+        <option value="consumibles_periode">Consum dels consumibles d’oficina d’un període de temps</option>
+        <option value="neteja_any">Consum dels productes de neteja del pròxim any</option>
+        <option value="neteja_periode">Consum dels productes de neteja d’un període de temps</option>
+    </select>
+    <button onclick="calculateResult()">Calcular</button>
+    
+    <h3>Resultat:</h3>
+    <p id="result">Selecciona un càlcul i prem el botó per veure el resultat.</p>
+    
+    <script src="style_java_c/script.js"></script>
+</body>
+</html>
