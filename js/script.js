@@ -554,7 +554,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Executar càlcul automàtic a Dades Propies al carregar
     if (document.getElementById('dadesPropies').classList.contains('active')) {
-        calcularDadesPropies();guyi
+        calcularDadesPropies();
     }
 });
 
