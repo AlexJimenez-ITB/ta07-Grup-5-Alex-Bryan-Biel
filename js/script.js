@@ -56,11 +56,6 @@ function openTab(tabName) {
     }
     document.getElementById(tabName).classList.add("active");
     document.querySelector(`button[onclick="openTab('${tabName}')"]`).classList.add("active");
-
-    // Executar càlcul automàtic si és la pestanya Dades Propies
-    if (tabName === 'dadesPropies') {
-        calcularDadesPropies();
-    }
 }
 
 // Funció per obrir/tancar desplegables
@@ -77,31 +72,33 @@ function exportToPDF(section) {
     const chartCanvas = document.getElementById(`chart${section.charAt(0).toUpperCase() + section.slice(1)}`);
 
     if (results && results.innerText) {
+        // Afegir títol i text
         doc.setFontSize(16);
         doc.text(`Resultats ${section.charAt(0).toUpperCase() + section.slice(1)}`, 10, 10);
         doc.setFontSize(12);
-        const textLines = doc.splitTextToSize(results.innerText, 180);
+        const textLines = doc.splitTextToSize(results.innerText, 180); // Ajustar amplada per evitar desbordament
         doc.text(textLines, 10, 20);
 
+        // Afegir el gràfic com a imatge
         if (chartCanvas) {
             const chartImg = chartCanvas.toDataURL("image/png");
-            const imgHeight = (chartCanvas.height * 180) / chartCanvas.width;
-            doc.addImage(chartImg, 'PNG', 10, 60, 180, imgHeight);
+            const imgHeight = (chartCanvas.height * 180) / chartCanvas.width; // Mantenir proporció
+            doc.addImage(chartImg, 'PNG', 10, 60, 180, imgHeight); // Posició ajustada sota el text
             doc.save(`Resultats_${section}.pdf`);
         } else {
-            doc.save(`Resultats_${section}.pdf`);
+            doc.save(`Resultats_${section}.pdf`); // Si no hi ha gràfic, només text
         }
     } else {
         alert("No hi ha resultats per exportar. Fes un càlcul primer!");
     }
 }
 
-// Càlculs per a la pestanya Personalitzat (amb gràfic corregit)
+// Càlculs per a la pestanya Personalitzat (amb gràfic)
 function calcularPersonalitzat() {
-    const electricBase = parseFloat(document.getElementById("electricBase").value) || 0;
-    const aiguaBase = parseFloat(document.getElementById("aiguaBase").value) || 0;
-    const oficinaBase = parseFloat(document.getElementById("oficinaBase").value) || 0;
-    const netejaBase = parseFloat(document.getElementById("netejaBase").value) || 0;
+    const electricBase = parseFloat(document.getElementById("electricBase").value);
+    const aiguaBase = parseFloat(document.getElementById("aiguaBase").value);
+    const oficinaBase = parseFloat(document.getElementById("oficinaBase").value);
+    const netejaBase = parseFloat(document.getElementById("netejaBase").value);
 
     const electricMensual = electricBase / 12;
     const electricHivern = electricMensual * 1.20;
@@ -142,75 +139,27 @@ function calcularPersonalitzat() {
         <p>8. Productes neteja setembre-juny: ${netejaCursTotal.toFixed(2)} €</p>
     `;
 
-    // Destruir el gràfic anterior si existeix
     if (chartPersonalitzat) {
         chartPersonalitzat.destroy();
-        console.log("Gràfic anterior destruït");
     }
-
-    // Comprovar i obtenir el context del canvas
-    const canvas = document.getElementById("chartPersonalitzat");
-    if (!canvas) {
-        console.error("Error: No s'ha trobat el canvas 'chartPersonalitzat'");
-        return;
-    }
-    canvas.width = 400; // Assegurar dimensions fixes
-    canvas.height = 200;
-    const ctx1 = canvas.getContext("2d");
-    if (!ctx1) {
-        console.error("Error: No es pot obtenir el context del canvas 'chartPersonalitzat'");
-        return;
-    }
-
-    // Crear el gràfic amb tots els resultats
-    try {
-        chartPersonalitzat = new Chart(ctx1, {
-            type: 'bar',
-            data: {
-                labels: ['Elèctric Any', 'Elèctric Curs', 'Aigua Any', 'Aigua Curs', 'Oficina Any', 'Oficina Curs', 'Neteja Any', 'Neteja Curs'],
-                datasets: [{
-                    label: 'Consum Personalitzat',
-                    data: [electricAnual, electricCurs, aiguaAnual, aiguaCurs, oficinaAnual, oficinaCursTotal, netejaAnual, netejaCursTotal],
-                    backgroundColor: ['#36A2EB', '#36A2EB', '#FF6384', '#FF6384', '#4BC0C0', '#4BC0C0', '#FFCE56', '#FFCE56']
-                }]
-            },
-            options: {
-                responsive: true, // Habilita la resposta automàtica a canvis de mida
-                maintainAspectRatio: false, // Permet ajustar l’aspecte
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: 'Valor' },
-                        ticks: {
-                            callback: function(value, index, values) {
-                                const labels = ['Elèctric Any', 'Elèctric Curs', 'Aigua Any', 'Aigua Curs', 'Oficina Any', 'Oficina Curs', 'Neteja Any', 'Neteja Curs'];
-                                return value.toLocaleString() + (labels[index].includes('Elèctric') ? ' kWh' : labels[index].includes('Aigua') ? ' m³' : ' €');
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.raw || 0;
-                                return `${label}: ${value.toLocaleString()} ${label.includes('Elèctric') ? 'kWh' : label.includes('Aigua') ? 'm³' : '€'}`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-        console.log("Gràfic creat amb èxit");
-    } catch (error) {
-        console.error("Error al crear el gràfic:", error);
-    }
+    const ctx = document.getElementById("chartPersonalitzat").getContext("2d");
+    chartPersonalitzat = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Elèctric Any', 'Elèctric Curs', 'Aigua Any', 'Aigua Curs', 'Oficina Any', 'Oficina Curs', 'Neteja Any', 'Neteja Curs'],
+            datasets: [{
+                label: 'Consum Personalitzat',
+                data: [electricAnual, electricCurs, aiguaAnual, aiguaCurs, oficinaAnual, oficinaCursTotal, netejaAnual, netejaCursTotal],
+                backgroundColor: ['#36A2EB', '#36A2EB', '#FF6384', '#FF6384', '#4BC0C0', '#4BC0C0', '#FFCE56', '#FFCE56']
+            }]
+        },
+        options: { scales: { y: { beginAtZero: true, title: { display: true, text: 'Valor (kWh/m³/€)' } } } }
+    });
 
     document.getElementById("exportPersonalitzat").style.display = "block";
 }
 
-// Càlculs i gràfics per a la pestanya Dades Propies (automàtic)
+// Càlculs i gràfics per a la pestanya Dades Propies
 function calcularDadesPropies() {
     // Costos de Subministraments
     const subministramentsMensual = costosSubministraments.total_anual_laborable / 12;
@@ -403,22 +352,18 @@ function calcularConsumElectric() {
         chartElectric.destroy();
     }
     const ctx = document.getElementById("chartConsumElectric").getContext("2d");
-    if (ctx) {
-        chartElectric = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Pròxim Any', 'Setembre-Juny'],
-                datasets: [{
-                    label: 'Consum Elèctric (kWh)',
-                    data: [electricAnual, electricCurs],
-                    backgroundColor: ['#36A2EB', '#FF6384']
-                }]
-            },
-            options: { scales: { y: { beginAtZero: true } } }
-        });
-    } else {
-        console.error("Error: No es pot obtenir el context del canvas 'chartConsumElectric'");
-    }
+    chartElectric = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Pròxim Any', 'Setembre-Juny'],
+            datasets: [{
+                label: 'Consum Elèctric (kWh)',
+                data: [electricAnual, electricCurs],
+                backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+    });
 
     document.getElementById("exportConsumElectric").style.display = "block";
 }
@@ -443,22 +388,18 @@ function calcularConsumAigua() {
         chartAiguaCurs.destroy();
     }
     const ctx = document.getElementById("chartConsumAigua").getContext("2d");
-    if (ctx) {
-        chartAiguaCurs = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Pròxim Any', 'Setembre-Juny'],
-                datasets: [{
-                    label: 'Consum d\'Aigua (m³)',
-                    data: [aiguaAnual, aiguaCurs],
-                    backgroundColor: ['#36A2EB', '#FF6384']
-                }]
-            },
-            options: { scales: { y: { beginAtZero: true } } }
-        });
-    } else {
-        console.error("Error: No es pot obtenir el context del canvas 'chartConsumAigua'");
-    }
+    chartAiguaCurs = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Pròxim Any', 'Setembre-Juny'],
+            datasets: [{
+                label: 'Consum d\'Aigua (m³)',
+                data: [aiguaAnual, aiguaCurs],
+                backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+    });
 
     document.getElementById("exportConsumAigua").style.display = "block";
 }
@@ -482,22 +423,18 @@ function calcularConsumOficina() {
         chartOficinaCurs.destroy();
     }
     const ctx = document.getElementById("chartConsumOficina").getContext("2d");
-    if (ctx) {
-        chartOficinaCurs = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Pròxim Any', 'Setembre-Juny'],
-                datasets: [{
-                    label: 'Consumibles d\'Oficina (€)',
-                    data: [oficinaAnual, oficinaCursTotal],
-                    backgroundColor: ['#36A2EB', '#FF6384']
-                }]
-            },
-            options: { scales: { y: { beginAtZero: true } } }
-        });
-    } else {
-        console.error("Error: No es pot obtenir el context del canvas 'chartConsumOficina'");
-    }
+    chartOficinaCurs = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Pròxim Any', 'Setembre-Juny'],
+            datasets: [{
+                label: 'Consumibles d\'Oficina (€)',
+                data: [oficinaAnual, oficinaCursTotal],
+                backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+    });
 
     document.getElementById("exportConsumOficina").style.display = "block";
 }
@@ -521,27 +458,23 @@ function calcularConsumNeteja() {
         chartNetejaCurs.destroy();
     }
     const ctx = document.getElementById("chartConsumNeteja").getContext("2d");
-    if (ctx) {
-        chartNetejaCurs = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Pròxim Any', 'Setembre-Juny'],
-                datasets: [{
-                    label: 'Productes de Neteja (€)',
-                    data: [netejaAnual, netejaCursTotal],
-                    backgroundColor: ['#36A2EB', '#FF6384']
-                }]
-            },
-            options: { scales: { y: { beginAtZero: true } } }
-        });
-    } else {
-        console.error("Error: No es pot obtenir el context del canvas 'chartConsumNeteja'");
-    }
+    chartNetejaCurs = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Pròxim Any', 'Setembre-Juny'],
+            datasets: [{
+                label: 'Productes de Neteja (€)',
+                data: [netejaAnual, netejaCursTotal],
+                backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+    });
 
     document.getElementById("exportConsumNeteja").style.display = "block";
 }
 
-// Carregar valors per defecte dels JSONs
+// Carregar valors per defecte dels JSONs i generar gràfics automàticament
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("electricBase").value = costosSubministraments.total_anual_laborable;
     document.getElementById("aiguaBase").value = consumAigua.consumo_anual;
@@ -552,11 +485,14 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("oficinaCursBase").value = consumiblesOficina.total_anual;
     document.getElementById("netejaCursBase").value = costosNeteja.total_anual;
 
-    // Executar càlcul automàtic a Dades Propies al carregar
-    if (document.getElementById('dadesPropies').classList.contains('active')) {
-        calcularDadesPropies();
-    }
-});
+    // Llamar a las funciones de cálculo para generar gráficos automáticamente
+    calcularPersonalitzat();
+    calcularDadesPropies();
+    calcularConsumElectric();
+    calcularConsumAigua();
+    calcularConsumOficina();
+    calcularConsumNeteja();
 
-// Obrir la pestanya "Personalitzat" per defecte
-openTab('personalitzat');
+    // Obrir la pestanya "Personalitzat" per defecte
+    openTab('personalitzat');
+});
